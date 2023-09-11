@@ -3,12 +3,12 @@ const visitorRouter = express.Router();
 const { visitorModel } = require("../model/visitorModel");
 
 visitorRouter.post("/count", async (req, res) => {
-  console.log(req.body)
+  console.log(req.socket.remoteAddress)
   try {
     let count = await visitorModel.countDocuments();
     let details = {
       id: count + 1,
-      ipAddress: req.ip,
+      ipAddress: req.socket.remoteAddress || "can't access",
       os:req.body.os,
       browser:req.body.browser,
       date: req.body.date,
